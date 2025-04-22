@@ -1,5 +1,6 @@
 import streamlit as st
 import plotly.express as px
+from backend import get_weather_data
 
 st.title("Weather Forecast Dashboard")
 # Data required for rendering the dashboard
@@ -10,12 +11,7 @@ option = st.selectbox("Select the Data to View", ("Temperature", "Sky"))
 # Display the selected data options
 st.subheader(f"{option} forecast for the next {days} days in {location}")
 
-def get_weather_data(days):
-    dates = ["2023-20-01", "2023-20-02", "2023-20-03"]
-    temperatures = [20, 22, 27]
-    temperatures = [days * i for i in temperatures]
-    return dates, temperatures
-
+data = get_weather_data(location, forecast_days, weather_type)
 
 dates, temperatures = get_weather_data(days)
 figure = px.line(x=dates, y=temperatures, labels={"x": "Date", "y": "Temperature (°C)"})
