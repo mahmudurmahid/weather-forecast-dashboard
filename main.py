@@ -11,8 +11,9 @@ option = st.selectbox("Select the Data to View", ("Temperature", "Sky"))
 # Display the selected data options
 st.subheader(f"{option} forecast for the next {forecast_days} days in {location}")
 
-data = get_weather_data(location, forecast_days, weather_type)
+# Get either temperature or sky data based on the selected option
+dates, temperatures = get_weather_data(location, forecast_days, option_type)
 
-dates, temperatures = get_weather_data(days)
+# Create a temperature line chart
 figure = px.line(x=dates, y=temperatures, labels={"x": "Date", "y": "Temperature (°C)"})
 st.plotly_chart(figure)
