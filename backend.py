@@ -1,5 +1,9 @@
 import os
 import requests
+from dotenv import load_dotenv
+
+load_dotenv()
+
 
 def get_weather_data(location, forecast_days=None, weather_type=None):
     api_key = os.getenv("openweather_api_key")
@@ -9,4 +13,4 @@ def get_weather_data(location, forecast_days=None, weather_type=None):
     return data
 
 if __name__ == "__main__":
-    get_weather_data(location="London")
+    print(get_weather_data(location="London"))
