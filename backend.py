@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 
-def get_weather_data(location, forecast_days=None, option_type=None):
+def get_weather_data(location, forecast_days=None):
     api_key = os.getenv("openweather_api_key")
     url = f"http://api.openweathermap.org/data/2.5/forecast?q={location}&appid={api_key}"
     response = requests.get(url)
@@ -13,13 +13,8 @@ def get_weather_data(location, forecast_days=None, option_type=None):
 
     filtered_data = data["list"]
     number_values = 8 * forecast_days
-    filtered_data = filtered_data[:8*number_values]
-    # Filter the data based on the selected option
-    if option_type == "Temperature":
-        filtered_data = [dict["main"]["temp"] for dict in filtered_data]
-    if option_type == "Sky":
-        filtered_data = [dict["weather"][0]["main"] for dict in filtered_data]
+    filtered_data = filtered_data[:number_values]
     return filtered_data
 
 if __name__ == "__main__":
-    print(get_weather_data(location="London", forecast_days==3, option_type="Temperature"))
+    print(get_weather_data(location="London", forecast_days=3))
